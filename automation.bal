@@ -5,7 +5,7 @@ configurable string gitPAT = ?;
 configurable string gitORG= ?;
 configurable string NAME= ?;
 
-public function main(string orgName, string repoName, string isPublic, string repoDesc, string enableIssues) returns error? {
+public function main(string orgName, string repoName, string isPublic, string repoDesc, string enableIssues, string pat) returns error? {
     do {
         string org = orgName != "" ? orgName : gitORG;
         string repo = repoName !="" ? repoName : NAME;
@@ -17,7 +17,7 @@ public function main(string orgName, string repoName, string isPublic, string re
         http:Client githubClient = check new(apirUrl);
 
         map<string> headers = {
-            "Authorization": string `token ${gitPAT}`,
+            "Authorization": string `token ${pat}`,
             "Accept":"application/vnd.github.v3+json"
         };
 
